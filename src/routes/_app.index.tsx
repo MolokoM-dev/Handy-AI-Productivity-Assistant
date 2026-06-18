@@ -5,8 +5,8 @@ import { Mail, FileText, ListChecks, Search, MessageSquare, Sparkles, ArrowRight
 export const Route = createFileRoute("/_app/")({
   head: () => ({
     meta: [
-      { title: "Dashboard — AI Workplace Productivity Assistant" },
-      { name: "description", content: "Automate daily work with AI-powered email, meeting summaries, task planning, research, and chat." },
+      { title: "Handy Assistant — Your AI productivity companion" },
+      { name: "description", content: "Handy Assistant helps you draft emails, summarize meetings, plan tasks, research, and chat — all powered by AI." },
     ],
   }),
   component: Dashboard,
@@ -25,15 +25,16 @@ function Dashboard() {
     <div className="mx-auto max-w-6xl space-y-8">
       <section className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
         <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-primary">
-          <Sparkles className="h-3.5 w-3.5" /> Workplace AI
+          <Sparkles className="h-3.5 w-3.5" /> Handy Assistant
         </div>
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-          Automate your <span className="text-gradient">daily work</span>.
+          Your AI <span className="text-gradient">productivity companion</span>.
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
-          Five focused AI tools to help professionals write, summarize, plan, research, and decide—faster.
+          Five focused AI tools to help you write, summarize, plan, research, and decide — faster. Install Handy on any device for one-tap access.
         </p>
       </section>
+
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => (

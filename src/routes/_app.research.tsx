@@ -13,7 +13,7 @@ import { SkeletonLines, EmptyState } from "@/routes/_app.email";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/research")({
-  head: () => ({ meta: [{ title: "AI Research Assistant — Workplace AI" }] }),
+  head: () => ({ meta: [{ title: "AI Research Assistant — Handy Assistant" }] }),
   component: ResearchPage,
 });
 
