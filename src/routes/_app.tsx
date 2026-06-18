@@ -3,6 +3,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "@/components/AppSidebar";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemePicker } from "@/components/ThemePicker";
 
 export const Route = createFileRoute("/_app")({
   component: AppLayout,
@@ -18,7 +19,10 @@ function AppLayout() {
             <SidebarTrigger />
             <Separator orientation="vertical" className="h-5" />
             <div className="text-sm font-medium text-muted-foreground">
-              AI Workplace Productivity Assistant
+              Handy Assistant
+            </div>
+            <div className="ml-auto">
+              <ThemePicker />
             </div>
           </header>
           <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
@@ -30,3 +34,4 @@ function AppLayout() {
     </SidebarProvider>
   );
 }
+
