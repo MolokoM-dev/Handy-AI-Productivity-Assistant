@@ -14,7 +14,7 @@ import { AiDisclaimer } from "@/components/AiDisclaimer";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/email")({
-  head: () => ({ meta: [{ title: "Smart Email Generator — Workplace AI" }] }),
+  head: () => ({ meta: [{ title: "Smart Email Generator — Handy Assistant" }] }),
   component: EmailPage,
 });
 

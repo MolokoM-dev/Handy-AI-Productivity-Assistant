@@ -11,7 +11,7 @@ import { AiDisclaimer } from "@/components/AiDisclaimer";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/chat")({
-  head: () => ({ meta: [{ title: "AI Chat — Workplace AI" }] }),
+  head: () => ({ meta: [{ title: "AI Chat — Handy Assistant" }] }),
   component: ChatPage,
 });
 

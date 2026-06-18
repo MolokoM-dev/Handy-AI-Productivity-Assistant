@@ -14,7 +14,7 @@ import { SkeletonLines, EmptyState } from "@/routes/_app.email";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/tasks")({
-  head: () => ({ meta: [{ title: "AI Task Planner — Workplace AI" }] }),
+  head: () => ({ meta: [{ title: "AI Task Planner — Handy Assistant" }] }),
   component: TasksPage,
 });
 

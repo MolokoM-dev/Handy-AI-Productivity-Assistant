@@ -18,7 +18,7 @@ export const Route = createFileRoute("/api/chat")({
         const gateway = createLovableAiGatewayProvider(key);
         const result = streamText({
           model: gateway("google/gemini-3-flash-preview"),
-          system: `You are an AI Workplace Productivity Assistant. Help professionals with:
+          system: `You are an Handy Assistant. Help professionals with:
 - Drafting emails and messages
 - Summarizing meetings
 - Planning and prioritizing tasks
