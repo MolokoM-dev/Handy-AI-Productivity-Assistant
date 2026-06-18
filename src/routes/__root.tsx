@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Handy Assistant — Your AI productivity companion" },
+      { title: "Handy Assistant" },
       { name: "description", content: "Handy Assistant is your AI-powered productivity companion for email, meetings, tasks, research, and chat." },
       { name: "author", content: "Handy Assistant" },
       { name: "theme-color", content: "#6d5cf5" },
@@ -88,9 +88,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "mobile-web-app-capable", content: "yes" },
       { property: "og:title", content: "Handy Assistant" },
-      { property: "og:description", content: "Your AI productivity companion — install on any device." },
+      { property: "og:description", content: "Handy Assistant is your AI-powered productivity companion for email, meetings, tasks, research, and chat." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Handy Assistant" },
+      { name: "twitter:description", content: "Handy Assistant is your AI-powered productivity companion for email, meetings, tasks, research, and chat." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1ef1069b-30ed-4b34-95b8-46f1a58773f4" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1ef1069b-30ed-4b34-95b8-46f1a58773f4" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
