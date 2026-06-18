@@ -9,12 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -24,16 +23,16 @@ const ApiChatRoute = ApiChatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AppRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof AppRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_app': typeof AppRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRouteTypes {
@@ -41,21 +40,21 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/api/chat'
-  id: '__root__' | '/' | '/api/chat'
+  id: '__root__' | '/_app' | '/api/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
+    '/_app': {
+      id: '/_app'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -69,7 +68,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AppRoute: AppRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
