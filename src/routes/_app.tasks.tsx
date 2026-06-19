@@ -62,9 +62,26 @@ function TasksPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-2 rounded-lg border border-border bg-muted/30 p-3">
+              <Label htmlFor="quickTask" className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Add a task</Label>
+              <Input id="quickTask" placeholder="What needs to be done?" value={quickTask} onChange={(e) => setQuickTask(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTask(); } }} />
+              <div className="grid grid-cols-[1fr_1fr_auto] gap-2">
+                <div className="space-y-1">
+                  <Label htmlFor="dueDate" className="text-xs text-muted-foreground">Due date</Label>
+                  <Input id="dueDate" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="dueTime" className="text-xs text-muted-foreground">Time</Label>
+                  <Input id="dueTime" type="time" value={dueTime} onChange={(e) => setDueTime(e.target.value)} />
+                </div>
+                <Button type="button" variant="secondary" onClick={addTask} className="self-end">
+                  <Plus className="mr-1 h-4 w-4" /> Add
+                </Button>
+              </div>
+            </div>
             <div className="space-y-1.5">
               <Label htmlFor="tasks">Your tasks</Label>
-              <Textarea id="tasks" rows={10} placeholder={"e.g.\nFinish Q3 report\nReply to client emails\nPrep for Friday demo\nGym at 6pm"} value={tasks} onChange={(e) => setTasks(e.target.value)} />
+              <Textarea id="tasks" rows={10} placeholder={"e.g.\n- Finish Q3 report (due: 2026-06-25 17:00)\n- Reply to client emails\n- Prep for Friday demo"} value={tasks} onChange={(e) => setTasks(e.target.value)} />
             </div>
             <div className="space-y-1.5">
               <Label>Planning horizon</Label>
