@@ -25,6 +25,18 @@ function TasksPage() {
   const [horizon, setHorizon] = useState("today");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
+  const [quickTask, setQuickTask] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [dueTime, setDueTime] = useState("");
+
+  const addTask = () => {
+    if (!quickTask.trim()) { toast.error("Type a task first."); return; }
+    let line = `- ${quickTask.trim()}`;
+    if (dueDate) line += ` (due: ${dueDate}${dueTime ? ` ${dueTime}` : ""})`;
+    setTasks((prev) => (prev ? prev + "\n" + line : line));
+    setQuickTask(""); setDueDate(""); setDueTime("");
+  };
+
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
