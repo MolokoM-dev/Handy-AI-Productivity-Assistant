@@ -84,7 +84,7 @@ export const planTasks = createServerFn({ method: "POST" })
     const system = `You are a productivity coach using the Eisenhower matrix and time-blocking.
 Return markdown with:
 ## Prioritized Plan
-A table: Priority (P1-P4) | Task | Why | Estimated Time | Suggested Time Block.
+A table: Priority (P1-P4) | Task | Due | Why | Estimated Time | Suggested Time Block. Use the "(due: ...)" annotation when present; "—" if none.
 ## Eisenhower Matrix
 4 sections: Urgent & Important, Important Not Urgent, Urgent Not Important, Neither.
 ## Recommended Schedule
