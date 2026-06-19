@@ -22,6 +22,7 @@ function ResearchPage() {
   const fn = useServerFn(researchTopic);
   const [topic, setTopic] = useState("");
   const [focus, setFocus] = useState("");
+  const [persona, setPersona] = useState("Business professional");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
 
