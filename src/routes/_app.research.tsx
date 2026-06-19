@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2, Search, Copy } from "lucide-react";
 import { AiOutput } from "@/components/AiOutput";
 import { AiDisclaimer } from "@/components/AiDisclaimer";
@@ -21,6 +22,7 @@ function ResearchPage() {
   const fn = useServerFn(researchTopic);
   const [topic, setTopic] = useState("");
   const [focus, setFocus] = useState("");
+  const [persona, setPersona] = useState("Business professional");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
 
@@ -29,7 +31,7 @@ function ResearchPage() {
     if (topic.trim().length < 2) { toast.error("Enter a topic to research."); return; }
     setLoading(true); setResult("");
     try {
-      const { text } = await fn({ data: { topic, focus } });
+      const { text } = await fn({ data: { topic, focus, persona } });
       setResult(text);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to research");
@@ -48,6 +50,29 @@ function ResearchPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label>What best describes you?</Label>
+              <Select value={persona} onValueChange={setPersona}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {[
+                    "Business professional",
+                    "Founder / entrepreneur",
+                    "Product manager",
+                    "Engineer / developer",
+                    "Designer",
+                    "Marketer",
+                    "Sales professional",
+                    "Consultant / analyst",
+                    "Investor",
+                    "Student",
+                    "Researcher / academic",
+                    "Educator",
+                    "Other",
+                  ].map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="space-y-1.5">
               <Label htmlFor="topic">Topic</Label>
               <Input id="topic" placeholder="e.g. Generative AI in B2B SaaS pricing" value={topic} onChange={(e) => setTopic(e.target.value)} />

@@ -4,10 +4,11 @@ import { useServerFn } from "@tanstack/react-start";
 import { planTasks } from "@/lib/ai.functions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, ListChecks, Copy } from "lucide-react";
+import { Loader2, ListChecks, Copy, Plus } from "lucide-react";
 import { AiOutput } from "@/components/AiOutput";
 import { AiDisclaimer } from "@/components/AiDisclaimer";
 import { SkeletonLines, EmptyState } from "@/routes/_app.email";
@@ -24,6 +25,18 @@ function TasksPage() {
   const [horizon, setHorizon] = useState("today");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
+  const [quickTask, setQuickTask] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [dueTime, setDueTime] = useState("");
+
+  const addTask = () => {
+    if (!quickTask.trim()) { toast.error("Type a task first."); return; }
+    let line = `- ${quickTask.trim()}`;
+    if (dueDate) line += ` (due: ${dueDate}${dueTime ? ` ${dueTime}` : ""})`;
+    setTasks((prev) => (prev ? prev + "\n" + line : line));
+    setQuickTask(""); setDueDate(""); setDueTime("");
+  };
+
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,9 +62,26 @@ function TasksPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-2 rounded-lg border border-border bg-muted/30 p-3">
+              <Label htmlFor="quickTask" className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Add a task</Label>
+              <Input id="quickTask" placeholder="What needs to be done?" value={quickTask} onChange={(e) => setQuickTask(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTask(); } }} />
+              <div className="grid grid-cols-[1fr_1fr_auto] gap-2">
+                <div className="space-y-1">
+                  <Label htmlFor="dueDate" className="text-xs text-muted-foreground">Due date</Label>
+                  <Input id="dueDate" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="dueTime" className="text-xs text-muted-foreground">Time</Label>
+                  <Input id="dueTime" type="time" value={dueTime} onChange={(e) => setDueTime(e.target.value)} />
+                </div>
+                <Button type="button" variant="secondary" onClick={addTask} className="self-end">
+                  <Plus className="mr-1 h-4 w-4" /> Add
+                </Button>
+              </div>
+            </div>
             <div className="space-y-1.5">
               <Label htmlFor="tasks">Your tasks</Label>
-              <Textarea id="tasks" rows={10} placeholder={"e.g.\nFinish Q3 report\nReply to client emails\nPrep for Friday demo\nGym at 6pm"} value={tasks} onChange={(e) => setTasks(e.target.value)} />
+              <Textarea id="tasks" rows={10} placeholder={"e.g.\n- Finish Q3 report (due: 2026-06-25 17:00)\n- Reply to client emails\n- Prep for Friday demo"} value={tasks} onChange={(e) => setTasks(e.target.value)} />
             </div>
             <div className="space-y-1.5">
               <Label>Planning horizon</Label>

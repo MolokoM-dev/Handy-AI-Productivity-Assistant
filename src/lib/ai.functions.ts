@@ -26,6 +26,7 @@ async function callAI(system: string, prompt: string) {
 
 /* ===== Email Generator ===== */
 const EmailInput = z.object({
+  persona: z.string().min(1),
   purpose: z.string().min(1),
   audience: z.string().min(1),
   tone: z.string().min(1),
@@ -36,11 +37,13 @@ export const generateEmail = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const system = `You are a professional communication expert. Write polished, concise, and clear emails.
 Rules:
+- Write from the sender persona's perspective and voice.
 - Match the requested tone exactly.
 - Tailor language to the specified audience.
 - Use a clear subject line, greeting, body (1-3 short paragraphs), and sign-off.
 - Avoid filler. Do not include explanations outside the email itself.`;
     const prompt = `Write an email with:
+SENDER PERSONA (who I am): ${data.persona}
 PURPOSE: ${data.purpose}
 AUDIENCE: ${data.audience}
 TONE: ${data.tone}
@@ -81,7 +84,7 @@ export const planTasks = createServerFn({ method: "POST" })
     const system = `You are a productivity coach using the Eisenhower matrix and time-blocking.
 Return markdown with:
 ## Prioritized Plan
-A table: Priority (P1-P4) | Task | Why | Estimated Time | Suggested Time Block.
+A table: Priority (P1-P4) | Task | Due | Why | Estimated Time | Suggested Time Block. Use the "(due: ...)" annotation when present; "—" if none.
 ## Eisenhower Matrix
 4 sections: Urgent & Important, Important Not Urgent, Urgent Not Important, Neither.
 ## Recommended Schedule
@@ -92,11 +95,16 @@ A time-blocked schedule for the requested horizon.
   });
 
 /* ===== Research Assistant ===== */
-const ResearchInput = z.object({ topic: z.string().min(2), focus: z.string().optional().default("") });
+const ResearchInput = z.object({
+  topic: z.string().min(2),
+  focus: z.string().optional().default(""),
+  persona: z.string().optional().default(""),
+});
 export const researchTopic = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => ResearchInput.parse(d))
   .handler(async ({ data }) => {
     const system = `You are a senior research analyst. Provide structured, balanced briefings from your training knowledge.
+Tailor depth, vocabulary, and recommendations to the reader's role when provided.
 Return markdown with:
 ## Overview
 2-4 sentence framing.
@@ -107,8 +115,8 @@ Bullet list.
 ## Risks & Considerations
 Bullet list.
 ## Suggested Next Steps
-Numbered list of concrete actions.
+Numbered list of concrete actions tailored to the reader's role.
 At the end add: *Note: Information may not reflect the latest developments. Verify critical facts with primary sources.*`;
-    const prompt = `Topic: ${data.topic}\nFocus area: ${data.focus || "general overview"}`;
+    const prompt = `Reader role: ${data.persona || "general professional"}\nTopic: ${data.topic}\nFocus area: ${data.focus || "general overview"}`;
     return callAI(system, prompt);
   });
