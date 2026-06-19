@@ -22,6 +22,7 @@ const tones = ["Professional", "Friendly", "Persuasive", "Apologetic", "Concise"
 
 function EmailPage() {
   const fn = useServerFn(generateEmail);
+  const [persona, setPersona] = useState("");
   const [purpose, setPurpose] = useState("");
   const [audience, setAudience] = useState("");
   const [tone, setTone] = useState("Professional");
@@ -31,13 +32,13 @@ function EmailPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!purpose.trim() || !audience.trim()) {
-      toast.error("Please describe the purpose and audience.");
+    if (!persona.trim() || !purpose.trim() || !audience.trim()) {
+      toast.error("Please describe who you are, the purpose, and the audience.");
       return;
     }
     setLoading(true); setResult("");
     try {
-      const { text } = await fn({ data: { purpose, audience, tone, context } });
+      const { text } = await fn({ data: { persona, purpose, audience, tone, context } });
       setResult(text);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to generate email");
@@ -56,6 +57,10 @@ function EmailPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="persona">Who are you?</Label>
+              <Input id="persona" placeholder="e.g. Product manager at a fintech startup" value={persona} onChange={(e) => setPersona(e.target.value)} />
+            </div>
             <div className="space-y-1.5">
               <Label htmlFor="purpose">Purpose</Label>
               <Input id="purpose" placeholder="e.g. Decline a meeting invite, request a deadline extension" value={purpose} onChange={(e) => setPurpose(e.target.value)} />
