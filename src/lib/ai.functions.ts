@@ -54,7 +54,7 @@ Output the email in markdown, starting with "**Subject:** <subject>".`;
   });
 
 /* ===== Meeting Notes Summarizer ===== */
-const NotesInput = z.object({ notes: z.string().min(10) });
+const NotesInput = z.object({ notes: z.string().trim().min(10).max(20_000) });
 export const summarizeNotes = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => NotesInput.parse(d))
   .handler(async ({ data }) => {
@@ -75,8 +75,8 @@ Bullet list. Omit section if none.`;
 
 /* ===== Task Planner ===== */
 const PlanInput = z.object({
-  tasks: z.string().min(3),
-  horizon: z.string().default("today"),
+  tasks: z.string().trim().min(3).max(10_000),
+  horizon: z.string().trim().max(100).default("today"),
 });
 export const planTasks = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => PlanInput.parse(d))
@@ -96,9 +96,9 @@ A time-blocked schedule for the requested horizon.
 
 /* ===== Research Assistant ===== */
 const ResearchInput = z.object({
-  topic: z.string().min(2),
-  focus: z.string().optional().default(""),
-  persona: z.string().optional().default(""),
+  topic: z.string().trim().min(2).max(500),
+  focus: z.string().trim().max(500).optional().default(""),
+  persona: z.string().trim().max(200).optional().default(""),
 });
 export const researchTopic = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => ResearchInput.parse(d))
