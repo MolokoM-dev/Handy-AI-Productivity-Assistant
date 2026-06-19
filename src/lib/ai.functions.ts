@@ -26,6 +26,7 @@ async function callAI(system: string, prompt: string) {
 
 /* ===== Email Generator ===== */
 const EmailInput = z.object({
+  persona: z.string().min(1),
   purpose: z.string().min(1),
   audience: z.string().min(1),
   tone: z.string().min(1),
@@ -36,11 +37,13 @@ export const generateEmail = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const system = `You are a professional communication expert. Write polished, concise, and clear emails.
 Rules:
+- Write from the sender persona's perspective and voice.
 - Match the requested tone exactly.
 - Tailor language to the specified audience.
 - Use a clear subject line, greeting, body (1-3 short paragraphs), and sign-off.
 - Avoid filler. Do not include explanations outside the email itself.`;
     const prompt = `Write an email with:
+SENDER PERSONA (who I am): ${data.persona}
 PURPOSE: ${data.purpose}
 AUDIENCE: ${data.audience}
 TONE: ${data.tone}
