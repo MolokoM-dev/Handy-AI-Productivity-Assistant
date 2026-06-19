@@ -26,11 +26,11 @@ async function callAI(system: string, prompt: string) {
 
 /* ===== Email Generator ===== */
 const EmailInput = z.object({
-  persona: z.string().min(1),
-  purpose: z.string().min(1),
-  audience: z.string().min(1),
-  tone: z.string().min(1),
-  context: z.string().optional().default(""),
+  persona: z.string().trim().min(1).max(500),
+  purpose: z.string().trim().min(1).max(2_000),
+  audience: z.string().trim().min(1).max(500),
+  tone: z.string().trim().min(1).max(100),
+  context: z.string().trim().max(5_000).optional().default(""),
 });
 export const generateEmail = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => EmailInput.parse(d))
@@ -54,7 +54,7 @@ Output the email in markdown, starting with "**Subject:** <subject>".`;
   });
 
 /* ===== Meeting Notes Summarizer ===== */
-const NotesInput = z.object({ notes: z.string().min(10) });
+const NotesInput = z.object({ notes: z.string().trim().min(10).max(20_000) });
 export const summarizeNotes = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => NotesInput.parse(d))
   .handler(async ({ data }) => {
@@ -75,8 +75,8 @@ Bullet list. Omit section if none.`;
 
 /* ===== Task Planner ===== */
 const PlanInput = z.object({
-  tasks: z.string().min(3),
-  horizon: z.string().default("today"),
+  tasks: z.string().trim().min(3).max(10_000),
+  horizon: z.string().trim().max(100).default("today"),
 });
 export const planTasks = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => PlanInput.parse(d))
@@ -96,9 +96,9 @@ A time-blocked schedule for the requested horizon.
 
 /* ===== Research Assistant ===== */
 const ResearchInput = z.object({
-  topic: z.string().min(2),
-  focus: z.string().optional().default(""),
-  persona: z.string().optional().default(""),
+  topic: z.string().trim().min(2).max(500),
+  focus: z.string().trim().max(500).optional().default(""),
+  persona: z.string().trim().max(200).optional().default(""),
 });
 export const researchTopic = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => ResearchInput.parse(d))
