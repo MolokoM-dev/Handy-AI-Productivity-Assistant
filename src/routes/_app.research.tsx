@@ -51,6 +51,29 @@ function ResearchPage() {
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-1.5">
+              <Label>What best describes you?</Label>
+              <Select value={persona} onValueChange={setPersona}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {[
+                    "Business professional",
+                    "Founder / entrepreneur",
+                    "Product manager",
+                    "Engineer / developer",
+                    "Designer",
+                    "Marketer",
+                    "Sales professional",
+                    "Consultant / analyst",
+                    "Investor",
+                    "Student",
+                    "Researcher / academic",
+                    "Educator",
+                    "Other",
+                  ].map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
               <Label htmlFor="topic">Topic</Label>
               <Input id="topic" placeholder="e.g. Generative AI in B2B SaaS pricing" value={topic} onChange={(e) => setTopic(e.target.value)} />
             </div>
