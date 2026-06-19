@@ -31,7 +31,7 @@ function ResearchPage() {
     if (topic.trim().length < 2) { toast.error("Enter a topic to research."); return; }
     setLoading(true); setResult("");
     try {
-      const { text } = await fn({ data: { topic, focus } });
+      const { text } = await fn({ data: { topic, focus, persona } });
       setResult(text);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to research");
