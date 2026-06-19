@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader2, FileText, Copy } from "lucide-react";
 import { AiOutput } from "@/components/AiOutput";
 import { AiDisclaimer } from "@/components/AiDisclaimer";
+import { VoiceRecorder } from "@/components/VoiceRecorder";
 import { SkeletonLines, EmptyState } from "@/routes/_app.email";
 import { toast } from "sonner";
 
