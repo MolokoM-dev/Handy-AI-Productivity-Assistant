@@ -26,11 +26,11 @@ async function callAI(system: string, prompt: string) {
 
 /* ===== Email Generator ===== */
 const EmailInput = z.object({
-  persona: z.string().min(1),
-  purpose: z.string().min(1),
-  audience: z.string().min(1),
-  tone: z.string().min(1),
-  context: z.string().optional().default(""),
+  persona: z.string().trim().min(1).max(500),
+  purpose: z.string().trim().min(1).max(2_000),
+  audience: z.string().trim().min(1).max(500),
+  tone: z.string().trim().min(1).max(100),
+  context: z.string().trim().max(5_000).optional().default(""),
 });
 export const generateEmail = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => EmailInput.parse(d))
