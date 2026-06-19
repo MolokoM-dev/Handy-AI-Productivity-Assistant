@@ -49,8 +49,11 @@ function MeetingsPage() {
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="notes">Notes / transcript</Label>
-              <Textarea id="notes" rows={14} placeholder="Paste raw meeting notes here…" value={notes} onChange={(e) => setNotes(e.target.value)} />
+              <div className="flex items-center justify-between">
+                <Label htmlFor="notes">Notes / transcript</Label>
+                <VoiceRecorder onTranscript={(t) => setNotes((prev) => (prev ? prev + "\n" + t : t))} />
+              </div>
+              <Textarea id="notes" rows={14} placeholder="Paste raw meeting notes here, or record your voice…" value={notes} onChange={(e) => setNotes(e.target.value)} />
             </div>
             <Button type="submit" disabled={loading} className="w-full">
               {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Summarizing…</> : "Summarize Meeting"}
