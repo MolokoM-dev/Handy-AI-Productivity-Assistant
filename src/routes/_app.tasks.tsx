@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, ListChecks, Copy } from "lucide-react";
+import { Loader2, ListChecks, Copy, Plus } from "lucide-react";
 import { AiOutput } from "@/components/AiOutput";
 import { AiDisclaimer } from "@/components/AiDisclaimer";
 import { SkeletonLines, EmptyState } from "@/routes/_app.email";
